@@ -1,6 +1,6 @@
 # Operators
 T_NUM = 'NUM'
-T_DEC = 'DEC'
+T_DEC = 'FLOAT'
 T_ADD = 'ADD'
 T_MIN = 'MIN'
 T_MUL = 'MUL'
@@ -10,9 +10,21 @@ T_EXP = 'EXP'
 T_RPAREN = 'RPAREN'
 T_LPAREN = 'LPAREN'
 T_SQRT = 'SQRT'
+T_EQU = 'EQU'
+T_REM = 'REM'
+T_EULER = 'e'
+T_PI = 'PI'
+T_LOG = 'LOG'
+T_LN = 'LN'
+T_INT = 'INTEG'
+T_SIG = 'SIGMA'
+T_PHI = 'PHI'
+T_VAR = 'VAR'
+T_DER = 'DER'
 
 # Constants 
 DIGITS = '0123456789'
+VARIABLES = 'xyzwu'
 
 # Errors
 class Error:
@@ -56,6 +68,12 @@ class Lexer:
                 self.advance()
             elif self.current_char in DIGITS:
                 tokens.append(self.make_number())
+                self.advance()
+            elif self.current_char == 'd':
+                self.advance()
+                if self.current_char in VARIABLES:
+                    tokens.append(T_DER + f" of {self.current_char}")
+                    self.advance()
             elif self.current_char == '+':
                 tokens.append(Token(T_ADD))
                 self.advance()
@@ -80,6 +98,36 @@ class Lexer:
             elif self.current_char == ")":
                 tokens.append(T_RPAREN)
                 self.advance()
+            elif self.current_char == "=":
+                tokens.append(T_EQU)
+                self.advance()
+            elif self.current_char == "R":
+                tokens.append(T_REM)
+                self.advance()
+            elif self.current_char == 'p':
+                self.advance()
+                if self.current_char == 'i':
+                    tokens.append(T_PI)
+                    self.advance()
+            elif self.current_char == 'i':
+                self.advance()
+                if self.current_char == 'n':
+                    self.advance()
+                    if self.current_char == 't':
+                        tokens.append(T_INT)
+                        self.advance()
+            elif self.current_char == 'O':
+                self.advance()
+                if self.current_char == '/':
+                    tokens.append(T_PHI)
+                    self.advance()
+            elif self.current_char == 's':
+                self.advance()
+                if self.current_char == 'u':
+                    self.advance()
+                    if self.current_char == 'm':
+                        tokens.append(T_SIG)
+                        self.advance()
             else:
                 char = self.current_char
                 self.advance
@@ -106,10 +154,70 @@ class Lexer:
             return Token(T_DEC, float(num_str))
         
 
+class NumberNode:
+    def __init__(self, token):
+        self.token = token
+        
+    def __repr__(self):
+        return f'{self.token}'
+
+class BinaryNode:
+    def __init__(self, op_token, left_node, right_node):
+        self.op_token = op_token
+        self.left_node = left_node
+        self.right_node = right_node
+
+    def __repr__(self):
+        return f"({self.left_node}, {self.op_token}, {self.right_node})"
+
+class Parser:
+    def __init__(self, tokens):
+        self.tokens = tokens
+        self.index = -1
+        self.advance()
+
+    def advance(self):
+        self.index += 1
+        if self.index < len(self.tokens):
+            self.current_token = self.tokens[self.index]
+
+        return self.current_token
+        
+        
+    def bin_operation(self, func, ops):
+        left = func()
+
+        while self.current_token.type in ops:
+            operator = self.current_token
+            self.advance()
+            right = func()
+            left = BinaryNode(operator,left,right)
+
+        return left
+        
+    def parse(self):
+        expr = self.expr()
+        return expr
+        
+    def factor(self):
+        token = self.current_token
+        if token.type in (T_NUM,T_DEC):
+            self.advance()
+            return NumberNode(token)
+        
+    def term(self):
+        return self.bin_operation(self.factor(), (T_MUL|T_DIV))
+        
+    def expr(self):
+        return self.bin_operation(self.factor(), (T_ADD,T_MIN))
+
 # Running
 
 def run(text):
     lexer = Lexer(text)
     tokens, error = lexer.make_tokens()
+    if error: return None, error
 
-    return tokens, error
+    parser = Parser(tokens)
+    ast = parser.parse()
+    return ast, None
