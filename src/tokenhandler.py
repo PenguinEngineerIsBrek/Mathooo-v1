@@ -206,10 +206,10 @@ class Parser:
             return NumberNode(token)
         
     def term(self):
-        return self.bin_operation(self.factor(), (T_MUL|T_DIV))
+        return self.bin_operation(self.factor, (T_MUL,T_DIV))
         
     def expr(self):
-        return self.bin_operation(self.factor(), (T_ADD,T_MIN))
+        return self.bin_operation(self.factor, (T_ADD,T_MIN))
 
 # Running
 
