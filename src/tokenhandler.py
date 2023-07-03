@@ -101,33 +101,6 @@ class Lexer:
             elif self.current_char == "=":
                 tokens.append(T_EQU)
                 self.advance()
-            elif self.current_char == "R":
-                tokens.append(T_REM)
-                self.advance()
-            elif self.current_char == 'p':
-                self.advance()
-                if self.current_char == 'i':
-                    tokens.append(T_PI)
-                    self.advance()
-            elif self.current_char == 'i':
-                self.advance()
-                if self.current_char == 'n':
-                    self.advance()
-                    if self.current_char == 't':
-                        tokens.append(T_INT)
-                        self.advance()
-            elif self.current_char == 'O':
-                self.advance()
-                if self.current_char == '/':
-                    tokens.append(T_PHI)
-                    self.advance()
-            elif self.current_char == 's':
-                self.advance()
-                if self.current_char == 'u':
-                    self.advance()
-                    if self.current_char == 'm':
-                        tokens.append(T_SIG)
-                        self.advance()
             else:
                 char = self.current_char
                 self.advance
@@ -209,7 +182,7 @@ class Parser:
         return self.bin_operation(self.factor, (T_MUL,T_DIV))
         
     def expr(self):
-        return self.bin_operation(self.factor, (T_ADD,T_MIN))
+        return self.bin_operation(self.term, (T_ADD,T_MIN))
 
 # Running
 
