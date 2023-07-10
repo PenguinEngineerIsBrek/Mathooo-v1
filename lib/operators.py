@@ -1,0 +1,19 @@
+T_NUM = 'NUM'
+T_DEC = 'FLOAT'
+T_ADD = 'ADD'
+T_MIN = 'MIN'
+T_MUL = 'MUL'
+T_DIV = 'DIV'
+T_MOD = 'MOD'
+T_EXP = 'EXP'
+T_RPAREN = 'RPAREN'
+T_LPAREN = 'LPAREN'
+T_SQRT = 'SQRT'
+T_COMP = 'EQUCOMPARISON'
+T_REM = 'REM'
+T_PI = 'PI'
+T_E = 'e'
+T_I = "i"
+
+
+T_EOF = 'EOF'
