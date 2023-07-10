@@ -1,9 +1,9 @@
 T_KEYWORD = 'KEYWORD'
 T_IDENTIFIER = 'IDENTIFIER'
-KEYWORDS = [
+VAR_KEYWORDS = [
     'var',
     'const',
-    'func',
-    'lambda'
 ]
+T_FUNC = 'func'
+T_LAMBDA = 'lambda'
 T_EQU = 'EQU'

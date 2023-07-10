@@ -381,21 +381,13 @@
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\ast.py',
    'PYMODULE'),
+  ('stringprep',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\stringprep.py',
+   'PYMODULE'),
   ('tracemalloc',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\tracemalloc.py',
-   'PYMODULE'),
-  ('subprocess',
-   'C:\\Program '
-   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\subprocess.py',
-   'PYMODULE'),
-  ('signal',
-   'C:\\Program '
-   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\signal.py',
-   'PYMODULE'),
-  ('_py_abc',
-   'C:\\Program '
-   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\_py_abc.py',
    'PYMODULE'),
   ('getpass',
    'C:\\Program '
@@ -437,13 +429,38 @@
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\http\\client.py',
    'PYMODULE'),
-  ('stringprep',
+  ('_py_abc',
    'C:\\Program '
-   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\stringprep.py',
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\_py_abc.py',
+   'PYMODULE'),
+  ('subprocess',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\subprocess.py',
+   'PYMODULE'),
+  ('signal',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\signal.py',
    'PYMODULE'),
   ('tokenhandler',
    'D:\\githubrepos\\Mathooo-v1\\lib\\tokenhandler.py',
    'PYMODULE'),
+  ('runtime_result',
+   'D:\\githubrepos\\Mathooo-v1\\lib\\runtime_result.py',
+   'PYMODULE'),
+  ('context', 'D:\\githubrepos\\Mathooo-v1\\lib\\context.py', 'PYMODULE'),
+  ('logical_nodes',
+   'D:\\githubrepos\\Mathooo-v1\\lib\\logical_nodes.py',
+   'PYMODULE'),
+  ('position', 'D:\\githubrepos\\Mathooo-v1\\lib\\position.py', 'PYMODULE'),
+  ('constants', 'D:\\githubrepos\\Mathooo-v1\\lib\\constants.py', 'PYMODULE'),
+  ('error_management',
+   'D:\\githubrepos\\Mathooo-v1\\lib\\error_management.py',
+   'PYMODULE'),
+  ('operators', 'D:\\githubrepos\\Mathooo-v1\\lib\\operators.py', 'PYMODULE'),
+  ('keywords_iden',
+   'D:\\githubrepos\\Mathooo-v1\\lib\\keywords_iden.py',
+   'PYMODULE'),
+  ('variables', 'D:\\githubrepos\\Mathooo-v1\\lib\\variables.py', 'PYMODULE'),
   ('string_with_arrows',
    'D:\\githubrepos\\Mathooo-v1\\lib\\string_with_arrows.py',
    'PYMODULE')],

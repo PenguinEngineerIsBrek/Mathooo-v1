@@ -145,7 +145,7 @@ class Lexer:
             id_str += self.current_char
             self.advance()
 
-        tok_type = T_KEYWORD if id_str in KEYWORDS else T_IDENTIFIER
+        tok_type = T_KEYWORD if id_str in VAR_KEYWORDS else T_IDENTIFIER
         return Token(tok_type, id_str, pos_start, self.pos)
 
 
@@ -253,7 +253,8 @@ class Parser:
 
     def expr(self):
         res = ParseResult()
-        if self.current_tok.matches(T_KEYWORD, 'var'):
+
+        if self.current_tok.type == T_KEYWORD and self.current_tok.value in VAR_KEYWORDS:
             res.register(self.advance())
             if self.current_tok.type != T_IDENTIFIER:
                 return res.failure(InvalidSyntaxError(

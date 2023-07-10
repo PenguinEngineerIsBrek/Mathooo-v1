@@ -47,6 +47,8 @@
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\calendar.py',
    'PYMODULE'),
+  ('constants', 'D:\\githubrepos\\Mathooo-v1\\lib\\constants.py', 'PYMODULE'),
+  ('context', 'D:\\githubrepos\\Mathooo-v1\\lib\\context.py', 'PYMODULE'),
   ('contextlib',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\contextlib.py',
@@ -158,6 +160,9 @@
   ('email.utils',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\email\\utils.py',
+   'PYMODULE'),
+  ('error_management',
+   'D:\\githubrepos\\Mathooo-v1\\lib\\error_management.py',
    'PYMODULE'),
   ('fractions',
    'C:\\Program '
@@ -291,9 +296,15 @@
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\inspect.py',
    'PYMODULE'),
+  ('keywords_iden',
+   'D:\\githubrepos\\Mathooo-v1\\lib\\keywords_iden.py',
+   'PYMODULE'),
   ('logging',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\logging\\__init__.py',
+   'PYMODULE'),
+  ('logical_nodes',
+   'D:\\githubrepos\\Mathooo-v1\\lib\\logical_nodes.py',
    'PYMODULE'),
   ('lzma',
    'C:\\Program '
@@ -319,10 +330,12 @@
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\opcode.py',
    'PYMODULE'),
+  ('operators', 'D:\\githubrepos\\Mathooo-v1\\lib\\operators.py', 'PYMODULE'),
   ('pickle',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\pickle.py',
    'PYMODULE'),
+  ('position', 'D:\\githubrepos\\Mathooo-v1\\lib\\position.py', 'PYMODULE'),
   ('pprint',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\pprint.py',
@@ -338,6 +351,9 @@
   ('random',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\random.py',
+   'PYMODULE'),
+  ('runtime_result',
+   'D:\\githubrepos\\Mathooo-v1\\lib\\runtime_result.py',
    'PYMODULE'),
   ('selectors',
    'C:\\Program '
@@ -409,6 +425,7 @@
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\typing.py',
    'PYMODULE'),
+  ('variables', 'D:\\githubrepos\\Mathooo-v1\\lib\\variables.py', 'PYMODULE'),
   ('zipfile',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.1008.0_x64__qbz5n2kfra8p0\\Lib\\zipfile.py',
