@@ -8,6 +8,7 @@ from constants import *
 from position import *
 from logical_nodes import *
 from context import *
+from smb_table import *
 from runtime_result import *
 import math
 
@@ -145,7 +146,7 @@ class Lexer:
             id_str += self.current_char
             self.advance()
 
-        tok_type = T_KEYWORD if id_str in VAR_KEYWORDS else T_IDENTIFIER
+        tok_type = T_KEYWORD if id_str in KEYWORDS else T_IDENTIFIER
         return Token(tok_type, id_str, pos_start, self.pos)
 
 
@@ -198,6 +199,63 @@ class Parser:
             ))
         return res
 
+    def if_expr(self):
+        res = ParseResult()
+        cases = []
+        else_case = None
+    
+        if not self.current_tok.matches(T_KEYWORD, 'IF'):
+            return res.failure(InvalidSyntaxError(
+            	self.current_tok.pos_start, self.current_tok.pos_end,
+                f"Expected 'IF'"
+            ))
+        res.register_advancement()
+        self.advance()
+
+        condition = res.register(self.expr())
+        if res.error: return res
+
+        if not self.current_tok.matches(T_KEYWORD, 'THEN'):
+            return res.failure(InvalidSyntaxError(
+                self.current_tok.pos_start, self.current_tok.pos_end,
+                f"Expected 'THEN'"
+            ))
+        
+        res.register_advancement()
+        self.advance()
+
+        expr = res.register(self.expr())
+        if res.error: return res
+        cases.append((condition, expr))
+
+        while self.current_tok.matches(T_KEYWORD, 'ELIF'):
+            res.register_advancement()
+            self.advance()
+            condition = res.register(self.expr())
+            if res.error: return res
+
+            if not self.current_tok.matches(T_KEYWORD, 'THEN'):
+                return res.failure(InvalidSyntaxError(
+					self.current_tok.pos_start, self.current_tok.pos_end,
+					f"Expected 'THEN'"
+				))
+
+            res.register_advancement()
+            self.advance()
+
+            expr = res.register(self.expr())
+            if res.error: return res
+            cases.append((condition, expr))
+
+        if self.current_tok.matches(T_KEYWORD, 'ELSE'):
+            res.regiser_advancement()
+            self.advance()
+            else_case = res.register(self.expr())
+            if res.error: return res
+
+        return res.success(IfNode(cases, else_case))
+
+
     def factor(self):
         res = ParseResult()
         tok = self.current_tok
@@ -230,6 +288,12 @@ class Parser:
                     self.current_tok.pos_start, self.current_tok.pos_end,
                     "Expected ')'"
                 ))
+        elif tok.matches(T_KEYWORD, 'IF'):
+            if_expr = res.register(self.if_expr())
+            if res.error: return res
+            return res.success(if_expr)
+        
+    
         elif tok.type == T_E:
             res.register(self.advance())
             return res.success(ENode(tok.value))
@@ -254,7 +318,7 @@ class Parser:
     def expr(self):
         res = ParseResult()
 
-        if self.current_tok.type == T_KEYWORD and self.current_tok.value in VAR_KEYWORDS:
+        if self.current_tok.type == T_KEYWORD and self.current_tok.value in KEYWORDS:
             res.register(self.advance())
             if self.current_tok.type != T_IDENTIFIER:
                 return res.failure(InvalidSyntaxError(
@@ -348,6 +412,24 @@ class Interpreter:
         else:
             return res.success(number.set_pos(node.pos_start, node.pos_end))
 
+    def visit_IfNode(self, node, context):
+        res = RTResult()
+
+        for condition, expr in node.cases:
+            condition_value = res.register(self.visit(condition, context))
+            if res.error: return res
+            if condition_value.is_true():
+                expr_value = res.register(self.visit(expr, context))
+                if res.error: return res
+                return res.success(expr_value)
+
+        if node.else_case:
+            else_value = res.register(self.visit(node.else_case, context))
+            if res.error: return res
+            return res.success(else_value)
+
+        return res.success(None)
+    
     def visit_ENode(self, node, context):
         return RTResult().success(
             Number(math.e).set_context(context).set_pos(node.pos_start, node.pos_end)
@@ -360,9 +442,31 @@ class Interpreter:
         return RTResult().success(
             Number(Complex(1j)).set_context(context).set_pos(node.pos_start, node.pos_end)
         )
+    def visit_VarAccessNode(self, node, context):
+        res = RTResult()
+        var_name = node.var_name_tok.value
+        value = context.symbol_table.get(var_name)
 
+        if not value:
+            return res.failure(RTError(
+                node.pos_start, node.pos_end,
+                f"'{var_name}' is not defined.",
+                context
+            ))
+        
+        return res.success(value)
+    
+    def visit_VarAssignNode(self, node, context):
+        res = RTResult()
+        var_name = node.var_name_tok.value
+        value = res.register(self.visit(node.value_node, context))
+        if res.error: return res
+        context.symbol_table.set(var_name, value)
+        return res.success(value)
 # Running
 
+global_symbol_table = SymbolTable()
+global_symbol_table.set("null", Number(0))
 
 def run(fn, text):
     lexer = Lexer(fn, text)
@@ -377,6 +481,7 @@ def run(fn, text):
 
     interpreter = Interpreter()
     context = Context('<program>')
+    context.symbol_table = global_symbol_table
     result = interpreter.visit(ast.node, context)
 
     return result.value, result.error
